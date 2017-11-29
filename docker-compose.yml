@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+  web-services:
+    image: node:8.9
+    user: "node"
+    depends_on:
+      - "mongodb"
+    working_dir: /usr/src
+    env_file: web-services/.env
+    volumes:
+      - ./web-services:/usr/src
+    command: sh -c "npm install && npm run dev"
+    # command: npm start
+    ports:
+      - "8080:8080"
+
+  mongodb:
+    image: mongo:3.2
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/mongo:/data/db
