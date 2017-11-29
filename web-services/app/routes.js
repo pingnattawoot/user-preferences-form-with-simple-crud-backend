@@ -1,68 +1,60 @@
-const jwt = require('jsonwebtoken');
-const User = require('./models/user');
-const { validateSignUp, validateLogin, validateToken } = require('./validator');
+const {
+  validateSignUp, validateLogin, validateToken, validateStaticRoutes,
+} = require('./validator');
+const { loginUser, signUpUser, getUserData } = require('./controllers/userController');
+const Language = require('./models/preferences/language');
+const Currency = require('./models/preferences/currency');
+const Timezone = require('./models/preferences/timezone');
 
-const apiRoutes = (app, express) => {
+const apiRoutes = (express) => {
   const router = express.Router();
   router.get('/', (req, res) => {
     res.json({ message: 'api!' });
   });
 
-  const loginUser = async (req, res) => {
-    const inputs = req.body;
-    const { username, password } = inputs;
-
-    const user = await User.findOne({ username });
-    if (!user) {
-      return res.status(401).send({
-        status: 401,
-        message: 'Unauthorized',
-      });
-    }
-
-    if (user.validPassword(password)) {
-      const payload = {
-        userid: user._id // eslint-disable-line
-      };
-      const token = jwt.sign(payload, app.get('superSecret'), {
-        expiresIn: 60,
-      });
-
-      return res.status(200).json({
-        status: 200,
-        message: 'login successfully, use your token to access your data',
-        token,
-      });
-    }
-
-    return res.status(401).send({
-      status: 401,
-      message: 'Unauthorized',
-    });
-  };
-
-  const signUpUser = async (req, res) => {
-    const inputs = req.body;
-    const { username, password } = inputs;
-
-    const newUser = new User({ username });
-    newUser.password = newUser.generateHash(password);
-
-    const savedUser = await newUser.save();
-    res.status(200).json(savedUser);
-  };
-
-  router.get('/users', validateToken, async (req, res) => {
-    const users = await User.find({});
-    res.json(users);
-  });
-
-  router.post('/signup', validateSignUp, signUpUser);
+  router.get('/me', validateToken, getUserData);
   router.post('/login', validateLogin, loginUser);
+  router.post('/signup', validateSignUp, signUpUser);
+
+  return router;
+};
+
+const staticRoutes = (express) => {
+  const router = express.Router();
+  router.get('/:type', validateStaticRoutes, async (req, res) => {
+    const { type } = req.params;
+    try {
+      switch (type) {
+        case 'languages':
+          res.status(200).send({
+            data: await Language.find({}),
+          });
+          break;
+        case 'timezones':
+          res.status(200).send({
+            data: await Timezone.find({}),
+          });
+          break;
+        case 'currency':
+          res.status(200).send({
+            data: await Currency.find({}),
+          });
+          break;
+
+        default:
+          break;
+      }
+    } catch (error) {
+      res.status(400).send({
+        message: error.message,
+      });
+    }
+  });
 
   return router;
 };
 
 module.exports = {
   apiRoutes,
+  staticRoutes,
 };
