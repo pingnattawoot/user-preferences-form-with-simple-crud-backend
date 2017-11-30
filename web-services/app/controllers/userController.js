@@ -1,14 +1,13 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
-const loginUser = async (req, res) => {
+const authenUser = async (req, res) => {
   const inputs = req.body;
   const { username, password } = inputs;
 
   const user = await User.findOne({ username });
   if (!user) {
-    return res.status(401).send({
-      status: 401,
+    return res.status(401).json({
       message: 'Unauthorized',
     });
   }
@@ -18,23 +17,21 @@ const loginUser = async (req, res) => {
       user_id: user._id // eslint-disable-line
     };
     const token = jwt.sign(payload, process.env.SECRET, {
-      expiresIn: 60,
+      expiresIn: 3600,
     });
 
     return res.status(200).json({
-      status: 200,
       message: 'login successfully, use your token to access your data',
       token,
     });
   }
 
-  return res.status(401).send({
-    status: 401,
+  return res.status(401).json({
     message: 'Unauthorized',
   });
 };
 
-const signUpUser = async (req, res) => {
+const createUser = async (req, res) => {
   const inputs = req.body;
   const { username, password } = inputs;
 
@@ -51,9 +48,38 @@ const getUserData = async (req, res) => {
   res.json(user);
 };
 
+const updateUserData = async (req, res) => {
+  try {
+    const inputs = req.body;
+    const { user_id } = req.decoded;
+    const user = await User.findOne({ _id: user_id });
+
+    const newPreferencesValue = {
+      localization: {
+        ...user.preferences.localization,
+        ...inputs.preferences.localization,
+      },
+      privacy: {
+        ...user.preferences.privacy,
+        ...inputs.preferences.privacy,
+      },
+      content: {
+        ...user.preferences.content,
+        ...inputs.preferences.content,
+      },
+    };
+    user.preferences = newPreferencesValue;
+    await user.save();
+    return res.status(200).json({ data: user });
+  } catch (error) {
+    return res.status(400).json({ message: error.message });
+  }
+};
+
 
 module.exports = {
-  loginUser,
-  signUpUser,
+  authenUser,
+  createUser,
   getUserData,
+  updateUserData,
 };

@@ -9,21 +9,29 @@ const userSchema = new Schema({
   password: { type: String, required: true },
   preferences: {
     localization: {
-      language: { type: String },
-      time_zone: { type: String },
-      currency: { type: String },
+      language: { type: String, default: null },
+      time_zone: { type: String, default: null },
+      currency: { type: String, default: null },
     },
     privacy: {
-      profile_visibility: { type: String, enum: ['everyone', 'private'] },
-      messages: { type: String, enum: ['everyone', 'people_you_follow', 'private'] },
+      profile_visibility: {
+        type: String,
+        enum: ['everyone', 'private'],
+        default: 'everyone',
+      },
+      messages: {
+        type: String,
+        enum: ['everyone', 'people_you_follow', 'no_one'],
+        default: 'people_you_follow',
+      },
     },
     content: {
-      category_lists: { type: String, enum: ['enable', 'disable'] },
+      category_lists: { type: String, enum: ['enable', 'disable'], default: 'enable' },
     },
   },
 }, {
   versionKey: false,
-  strict: false,
+  strict: true,
   timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
 });
 

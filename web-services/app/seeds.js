@@ -42,10 +42,7 @@ const seedLanguage = async () => {
   const count = await Language.count({});
   if (count === 0) {
     console.log('======= seedLanguage =======');
-    langageList.forEach((text, id) => {
-      const newLang = new Language({ id, text });
-      newLang.save();
-    });
+    langageList.forEach((text, id) => Language.create({ id, text }));
   }
 };
 
@@ -53,10 +50,7 @@ const seedCurrency = async () => {
   const count = await Currency.count({});
   if (count === 0) {
     console.log('======= seedCurrency =======');
-    currencyList.forEach((text, id) => {
-      const newCurrency = new Currency({ id, text });
-      newCurrency.save();
-    });
+    currencyList.forEach((text, id) => Currency.create({ id, text }));
   }
 };
 
@@ -64,10 +58,7 @@ const seedTimezone = async () => {
   const count = await Timezone.count({});
   if (count === 0) {
     console.log('======= seedTimezone =======');
-    timezoneList.forEach((text, id) => {
-      const newTimezone = new Timezone({ id, text });
-      newTimezone.save();
-    });
+    timezoneList.forEach((text, id) => Timezone.create({ id, text }));
   }
 };
 

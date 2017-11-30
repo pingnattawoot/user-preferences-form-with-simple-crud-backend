@@ -26,8 +26,8 @@ app.get('/', (req, res) => {
 
 const { apiRoutes, staticRoutes } = routes;
 
-app.use('/api', apiRoutes(express));
-app.use('/static', staticRoutes(express));
+apiRoutes(app);
+staticRoutes(app);
 
 app.listen(port);
 console.log(`service is running at http://localhost:${port}`);
