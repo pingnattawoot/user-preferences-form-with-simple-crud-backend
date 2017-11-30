@@ -4,8 +4,9 @@ const User = require('../models/user');
 const authenUser = async (req, res) => {
   const inputs = req.body;
   const { username, password } = inputs;
-
   const user = await User.findOne({ username });
+
+  console.log('user', user);
   if (!user) {
     return res.status(401).json({
       message: 'Unauthorized',

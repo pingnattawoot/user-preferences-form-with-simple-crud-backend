@@ -31,3 +31,5 @@ staticRoutes(app);
 
 app.listen(port);
 console.log(`service is running at http://localhost:${port}`);
+
+module.exports = app;
