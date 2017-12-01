@@ -1,0 +1,19 @@
+{
+  "name": "user-preferences-form-with-simple-crud-backend",
+  "version": "0.0.1",
+  "description": "Taskworld test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pingnattawoot/user-preferences-form-with-simple-crud-backend.git"
+  },
+  "author": "Nattawoot Sarathassananan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pingnattawoot/user-preferences-form-with-simple-crud-backend/issues"
+  },
+  "homepage": "https://github.com/pingnattawoot/user-preferences-form-with-simple-crud-backend#readme"
+}
