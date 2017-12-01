@@ -6,7 +6,6 @@ const authenUser = async (req, res) => {
   const { username, password } = inputs;
   const user = await User.findOne({ username });
 
-  console.log('user', user);
   if (!user) {
     return res.status(401).json({
       message: 'Unauthorized',
@@ -33,20 +32,26 @@ const authenUser = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
-  const inputs = req.body;
-  const { username, password } = inputs;
-
-  const newUser = new User({ username });
-  newUser.password = newUser.generateHash(password);
-
-  const savedUser = await newUser.save();
-  res.status(200).json(savedUser);
+  try {
+    const inputs = req.body;
+    const { username, password } = inputs;
+    const newUser = new User({ username });
+    newUser.password = newUser.generateHash(password);
+    const savedUser = await newUser.save();
+    res.status(200).json({ data: savedUser });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
 const getUserData = async (req, res) => {
-  const decodedToken = req.decoded;
-  const user = await User.findOne({ _id: decodedToken.user_id });
-  res.json(user);
+  try {
+    const decodedToken = req.decoded;
+    const user = await User.findOne({ _id: decodedToken.user_id });
+    res.status(200).json({ data: user });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
 const updateUserData = async (req, res) => {
@@ -73,7 +78,7 @@ const updateUserData = async (req, res) => {
     await user.save();
     return res.status(200).json({ data: user });
   } catch (error) {
-    return res.status(400).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
 
