@@ -1,17 +1,20 @@
 import React from 'react';
-import { Route, Link } from 'react-router-dom';
-import Counter from './containers/Counter';
-import TestComponent from './components/TestComponent';
+import 'sanitize.css';
+import styled from 'styled-components';
+import NavigationBar from './components/NavigationBar';
+import MainPanel from './components/MainPanel';
+
+const AppWraper = styled.div`
+  font-family: 'Open Sans', sans-serif;
+  display: flex;
+  flex-direction: column;
+`;
 
 const App = () => (
-  <div>
-    App.js
-    <Link to="/" href="/"> Home </Link>
-    <Link to="/counter" href="/counter"> Counter </Link>
-    <Route path="/" exact component={TestComponent} />
-    <Route path="/counter" component={Counter} />
-  </div>
+  <AppWraper>
+    <NavigationBar />
+    <MainPanel />
+  </AppWraper>
 );
-
 
 export default App;
