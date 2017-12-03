@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import LocalizationSetting from './preferences/LocalizationSetting';
-import PrivacySetting from './preferences/PrivacySetting';
-import ContentSetting from './preferences/ContentSetting';
+import LocalizationSetting from './LocalizationSetting';
+import PrivacySetting from './PrivacySetting';
+import ContentSetting from './ContentSetting';
 
 const DisplayPanelWrapper = styled.ul`
   width: 728px;

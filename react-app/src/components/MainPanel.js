@@ -1,25 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
-import MenuList from './MenuList';
-import DisplayPanel from './DisplayPanel';
+import Preferences from './Preferences';
 
 const MainPanelWrapper = styled.div`
-  padding: 12px;
+  padding: 12px 12px 48px;
   background: #ebeced;
   min-height: 1000px;
   z-index: inherit;
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-  align-items: flex-start
 `;
 
 const MainPanel = () => (
   <MainPanelWrapper>
-    <MenuList />
-    <DisplayPanel />
+    <Preferences />
   </MainPanelWrapper>
 );
-
 
 export default MainPanel;
