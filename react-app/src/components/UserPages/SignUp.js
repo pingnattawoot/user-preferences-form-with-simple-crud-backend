@@ -33,7 +33,7 @@ class SignUp extends Component {
 
       if (invalidLength) {
         this.setState(() => ({
-          error: 'Username and length must be between 4 and 20 characters',
+          error: 'Username and Password length must be between 4 and 20 characters',
         }));
       } else {
         this.props.signUpRequest({
