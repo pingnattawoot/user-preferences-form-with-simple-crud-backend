@@ -19,6 +19,13 @@ const getUserData = token => axios
     },
   });
 
+const getStaticData = ({ token, type }) => axios
+  .get(`${process.env.REACT_APP_SERVICE_URL}/static/${type}`, {
+    params: {
+      token,
+    },
+  });
+
 // token
 const userTokenKey = 'user_token';
 const getUserTokenFromStorage = () => localStorage.getItem(userTokenKey);
@@ -29,6 +36,7 @@ export {
   signUp,
   signIn,
   getUserData,
+  getStaticData,
   getUserTokenFromStorage,
   setUserTokenInStorage,
   removeUserTokenFromStorage,

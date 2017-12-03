@@ -8,11 +8,14 @@ import {
   signInFail,
   getUserDataSuccess,
   getUserDataFail,
+  getStaticDataSuccess,
+  getStaticDataFail,
 } from '../actions/user';
 import {
   signUp,
   signIn,
   getUserData,
+  getStaticData,
   getUserTokenFromStorage,
   setUserTokenInStorage,
 } from '../api';
@@ -28,12 +31,29 @@ function* signUpWorker(action) {
   }
 }
 
+const mapDropdown = ({ id, text }) => ({ id, text });
+
+function* getStaticDataWorker() {
+  try {
+    const token = getUserTokenFromStorage();
+    const languageResponse = yield call(getStaticData, { token, type: 'languages' });
+    const timezoneResponse = yield call(getStaticData, { token, type: 'timezones' });
+    const currencyResponse = yield call(getStaticData, { token, type: 'currency' });
+    const languages = languageResponse.data.data.map(mapDropdown);
+    const timezones = timezoneResponse.data.data.map(mapDropdown);
+    const currency = currencyResponse.data.data.map(mapDropdown);
+    yield put(getStaticDataSuccess({ languages, timezones, currency }));
+  } catch (error) {
+    yield put(getStaticDataFail(error.message));
+  }
+}
+
 function* getUserWorker() {
   try {
     const token = getUserTokenFromStorage();
-    console.log(token);
     const response = yield call(getUserData, token);
     yield put(getUserDataSuccess(response.data.data));
+    yield* getStaticDataWorker();
   } catch (error) {
     yield put(getUserDataFail(error.message));
   }

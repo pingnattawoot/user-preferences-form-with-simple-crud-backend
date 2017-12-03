@@ -8,6 +8,8 @@ import {
   GET_USER_DATA_REQUEST,
   GET_USER_DATA_SUCCESS,
   GET_USER_DATA_FAIL,
+  GET_STATIC_DATA_SUCCESS,
+  GET_STATIC_DATA_FAIL,
 } from './types';
 
 const signUpRequest = ({ username, password }) => ({
@@ -52,6 +54,16 @@ const getUserDataFail = error => ({
   payload: error,
 });
 
+const getStaticDataSuccess = data => ({
+  type: GET_STATIC_DATA_SUCCESS,
+  payload: data,
+});
+
+const getStaticDataFail = error => ({
+  type: GET_STATIC_DATA_FAIL,
+  payload: error,
+});
+
 export {
   signUpRequest,
   signUpSuccess,
@@ -62,4 +74,6 @@ export {
   getUserDataRequest,
   getUserDataSuccess,
   getUserDataFail,
+  getStaticDataSuccess,
+  getStaticDataFail,
 };

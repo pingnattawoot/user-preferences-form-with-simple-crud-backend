@@ -8,6 +8,8 @@ import {
   GET_USER_DATA_REQUEST,
   GET_USER_DATA_SUCCESS,
   GET_USER_DATA_FAIL,
+  GET_STATIC_DATA_SUCCESS,
+  GET_STATIC_DATA_FAIL,
 } from '../actions/types';
 
 const initialState = {
@@ -18,6 +20,7 @@ const initialState = {
   isError: false,
   error: '',
   data: {},
+  static: {},
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -84,6 +87,18 @@ export const userReducer = (state = initialState, action) => {
         isLoading: false,
         isError: true,
         getUserDataSuccess: false,
+        error: action.payload,
+      };
+    case GET_STATIC_DATA_SUCCESS:
+      return {
+        ...state,
+        static: action.payload,
+      };
+    case GET_STATIC_DATA_FAIL:
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
         error: action.payload,
       };
     default:
