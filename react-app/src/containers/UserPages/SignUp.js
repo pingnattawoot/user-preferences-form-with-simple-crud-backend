@@ -1,6 +1,13 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import SignUp from '../../components/UserPages/SignUp';
-import { requestSignUp } from '../../actions/user';
+import { signUpRequest } from '../../actions/user';
 
-export default withRouter(connect(null, { requestSignUp })(SignUp));
+const mapStateToProps = ({ user }) => ({
+  user,
+});
+
+export default withRouter(connect(
+  mapStateToProps,
+  { signUpRequest },
+)(SignUp));

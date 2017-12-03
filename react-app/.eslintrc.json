@@ -5,6 +5,7 @@
     "browser": true,
     "es6": true
   },
+  "parser": "babel-eslint",
   "rules": {
     "react/jsx-filename-extension": [
       "warn",

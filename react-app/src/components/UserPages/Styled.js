@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const PageContainer = styled.div`
   display: flex;
@@ -11,6 +11,7 @@ const Box = styled.div`
   display: flex;
   flex-direction: column;
   background: #fff;
+  max-width: 300px;
   border: 1px solid #ccc;
   border-radius: 4px;
   align-items: center;
@@ -47,6 +48,11 @@ const MainButton = styled.button`
     background-color: #42a7f4;
     color: #fff;
   }
+  ${props => props.fade && css`
+    opacity: 0.7;
+    background-color: #42a7f4;
+    color: #fff;
+  `}
 `;
 
 const LinkButton = styled.button`
@@ -62,6 +68,16 @@ const LinkButton = styled.button`
 
 const Text = styled.div`
   font-size: 12px;
+  text-align: center;
+  ${props => props.success && css`
+    color: #3aaf57;
+    font-weight: bold;
+  `}
+  ${props => props.danger && css`
+    color: #f44242;
+    font-weight: bold;
+  `}
+  
 `;
 
 export {
