@@ -9,14 +9,14 @@ import {
   Text,
 } from './Styled';
 
-const SignUp = ({ history }) => (
+const SignUp = ({ history, requestSignUp }) => (
   <PageContainer>
     <Box>
       <div>Sign Up</div>
       <TextInput placeholder="Username" />
       <TextInput placeholder="Password" />
       <TextInput placeholder="Confirm Password" />
-      <MainButton>Submit</MainButton>
+      <MainButton onClick={requestSignUp}>Submit</MainButton>
       <Text>
         Already have an account ?
         <LinkButton onClick={() => history.push('/signin')}>Sign In</LinkButton>
@@ -27,6 +27,7 @@ const SignUp = ({ history }) => (
 
 SignUp.propTypes = {
   history: PropTypes.object.isRequired,
+  requestSignUp: PropTypes.func.isRequired,
 };
 
 export default SignUp;
