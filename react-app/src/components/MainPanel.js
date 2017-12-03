@@ -6,9 +6,9 @@ import {
   Switch,
 } from 'react-router-dom';
 
+import RequireAuth from '../hocs/RequireAuth';
 import Preferences from './Preferences';
 import TestComponent from './TestComponent';
-
 import SignIn from '../containers/UserPages/SingIn';
 import SignUp from '../containers/UserPages/SignUp';
 
@@ -22,7 +22,7 @@ const MainPanelWrapper = styled.div`
 const MainPanel = () => (
   <MainPanelWrapper>
     <Switch>
-      <Route exact path="/" component={Preferences} />
+      <Route exact path="/" component={RequireAuth(Preferences)} />
       <Route path="/test" component={TestComponent} />
       <Route path="/signin" component={SignIn} />
       <Route path="/signup" component={SignUp} />

@@ -1,6 +1,6 @@
 import { call, put, all, takeLatest } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
-import { SIGNUP_REQUEST, SIGNIN_REQUEST } from '../actions/types';
+import { SIGNUP_REQUEST, SIGNIN_REQUEST, GET_USER_DATA_REQUEST } from '../actions/types';
 import {
   signUpSuccess,
   signUpFail,
@@ -44,8 +44,8 @@ function* signInWorker(action) {
   yield call(delay, 1500); // because api is very fast
   try {
     const response = yield call(signIn, { username, password });
-    yield put(signInSuccess());
     yield call(setUserTokenInStorage, response.data.token);
+    yield put(signInSuccess());
     yield* getUserWorker();
   } catch (error) {
     yield put(signInFail(error.message));
@@ -57,5 +57,6 @@ export function* userWatcher() {
   yield all([
     takeLatest(SIGNUP_REQUEST, signUpWorker),
     takeLatest(SIGNIN_REQUEST, signInWorker),
+    takeLatest(GET_USER_DATA_REQUEST, getUserWorker),
   ]);
 }
