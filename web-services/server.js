@@ -6,10 +6,12 @@ const mongoose = require('mongoose');
 const config = require('./config');
 const routes = require('./app/routes');
 const seeds = require('./app/seeds');
+const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 8080;
 
+app.use(cors());
 mongoose.connect(config.database, () => {
   seeds.seedLanguage();
   seeds.seedCurrency();
