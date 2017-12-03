@@ -1,14 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import {
-  BrowserRouter as Router,
+  // BrowserRouter as Router,
   Route,
+  Switch,
 } from 'react-router-dom';
 
 import Preferences from './Preferences';
 import TestComponent from './TestComponent';
-import SignIn from './UserPages/SignIn';
-import SignUp from './UserPages/SignUp';
+
+import SignIn from '../containers/UserPages/SingIn';
+import SignUp from '../containers/UserPages/SignUp';
 
 const MainPanelWrapper = styled.div`
   padding: 12px 12px 48px;
@@ -19,14 +21,12 @@ const MainPanelWrapper = styled.div`
 
 const MainPanel = () => (
   <MainPanelWrapper>
-    <Router>
-      <div>
-        <Route exact path="/" component={Preferences} />
-        <Route path="/test" component={TestComponent} />
-        <Route path="/signin" component={SignIn} />
-        <Route path="/signup" component={SignUp} />
-      </div>
-    </Router>
+    <Switch>
+      <Route exact path="/" component={Preferences} />
+      <Route path="/test" component={TestComponent} />
+      <Route path="/signin" component={SignIn} />
+      <Route path="/signup" component={SignUp} />
+    </Switch>
   </MainPanelWrapper>
 );
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   PageContainer,
   Box,
@@ -8,7 +9,7 @@ import {
   Text,
 } from './Styled';
 
-const SignIn = () => (
+const SignIn = ({ history }) => (
   <PageContainer>
     <Box>
       <div>Sign In</div>
@@ -16,10 +17,15 @@ const SignIn = () => (
       <TextInput placeholder="Password" />
       <MainButton>Submit</MainButton>
       <Text>
-        {'Don\'t have an account ?'} <LinkButton>Sign Up</LinkButton>
+        {'Don\'t have an account ?'}
+        <LinkButton onClick={() => history.push('/signup')}>Sign Up</LinkButton>
       </Text>
     </Box>
   </PageContainer>
 );
+
+SignIn.propTypes = {
+  history: PropTypes.object.isRequired,
+};
 
 export default SignIn;
