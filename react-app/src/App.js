@@ -8,6 +8,11 @@ const AppWraper = styled.div`
   font-family: 'Open Sans', sans-serif;
   display: flex;
   flex-direction: column;
+  * {
+    transition-property: all;
+    transition-duration: .2s;
+  }
+  
 `;
 
 const App = () => (

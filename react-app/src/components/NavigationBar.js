@@ -58,6 +58,7 @@ const SearchIcon = styled.i`
 `;
 
 const ActionList = styled.ul`
+  width: 260px;
   list-style: none;
   padding: 0px;
   font-size: 16px;
