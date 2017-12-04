@@ -21,6 +21,7 @@ class SignIn extends Component {
     this.setState(() => ({ [name]: e.target.value }));
   };
 
+
   signIn = () => {
     const { username, password } = this.state;
     const invalidLength = username.length === 0 || password.length === 0;
@@ -35,6 +36,12 @@ class SignIn extends Component {
         password,
       });
       this.setState(() => ({ error: '' }));
+    }
+  }
+
+  handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      this.signIn();
     }
   }
 
@@ -81,12 +88,14 @@ class SignIn extends Component {
             placeholder="Username"
             value={username}
             onChange={e => this.changeInputValue(e, 'username')}
+            onKeyUp={e => this.handleKeyPress(e)}
           />
           <TextInput
             type="password"
             placeholder="Password"
             value={password}
             onChange={e => this.changeInputValue(e, 'password')}
+            onKeyUp={e => this.handleKeyPress(e)}
           />
           {this.renderMainButton()}
           {this.renderError()}
