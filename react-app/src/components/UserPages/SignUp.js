@@ -47,6 +47,12 @@ class SignUp extends Component {
     }
   }
 
+  handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      this.signUp();
+    }
+  }
+
   renderError = () => {
     const { user } = this.props;
     if (this.state.error !== '') {
@@ -92,18 +98,21 @@ class SignUp extends Component {
             placeholder="Username"
             value={username}
             onChange={e => this.changeInputValue(e, 'username')}
+            onKeyUp={e => this.handleKeyPress(e)}
           />
           <TextInput
             type="password"
             placeholder="Password"
             value={password}
             onChange={e => this.changeInputValue(e, 'password')}
+            onKeyUp={e => this.handleKeyPress(e)}
           />
           <TextInput
             type="password"
             placeholder="Confirm Password"
             value={comfirmPassword}
             onChange={e => this.changeInputValue(e, 'comfirmPassword')}
+            onKeyUp={e => this.handleKeyPress(e)}
           />
           {this.renderMainButton()}
           {this.renderError()}
