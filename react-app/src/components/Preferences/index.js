@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import MenuList from './MenuList';
-import DisplayPanel from './DisplayPanel';
+import DisplayPanel from '../../containers/Preferences/DisplayPanel';
 
 const PreferencesWrapper = styled.div`
   display: flex;

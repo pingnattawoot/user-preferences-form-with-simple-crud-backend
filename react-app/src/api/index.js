@@ -19,6 +19,11 @@ const getUserData = token => axios
     },
   });
 
+const updateUserData = ({ token, preferences }) => axios
+  .put(`${process.env.REACT_APP_SERVICE_URL}/api/user?token=${token}`, {
+    preferences: { ...preferences },
+  });
+
 const getStaticData = ({ token, type }) => axios
   .get(`${process.env.REACT_APP_SERVICE_URL}/static/${type}`, {
     params: {
@@ -37,6 +42,7 @@ export {
   signIn,
   getUserData,
   getStaticData,
+  updateUserData,
   getUserTokenFromStorage,
   setUserTokenInStorage,
   removeUserTokenFromStorage,

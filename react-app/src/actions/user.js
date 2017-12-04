@@ -10,6 +10,12 @@ import {
   GET_USER_DATA_FAIL,
   GET_STATIC_DATA_SUCCESS,
   GET_STATIC_DATA_FAIL,
+  UPDATE_LOCALIZAITON_LANGUAGE,
+  UPDATE_LOCALIZAITON_TIMEZONE,
+  UPDATE_LOCALIZAITON_CURRENCY,
+  UPDATE_USER_DATA_REQUEST,
+  UPDATE_USER_DATA_SUCCESS,
+  UPDATE_USER_DATA_FAIL,
 } from './types';
 
 const signUpRequest = ({ username, password }) => ({
@@ -64,6 +70,34 @@ const getStaticDataFail = error => ({
   payload: error,
 });
 
+const updateLanguage = lang => ({
+  type: UPDATE_LOCALIZAITON_LANGUAGE,
+  payload: lang,
+});
+
+const updateTimezone = tz => ({
+  type: UPDATE_LOCALIZAITON_TIMEZONE,
+  payload: tz,
+});
+
+const updateCurrency = cur => ({
+  type: UPDATE_LOCALIZAITON_CURRENCY,
+  payload: cur,
+});
+
+const updateUserDataRequest = () => ({
+  type: UPDATE_USER_DATA_REQUEST,
+});
+
+const updateUserDataSuccess = () => ({
+  type: UPDATE_USER_DATA_SUCCESS,
+});
+
+const updateUserDataUpFail = error => ({
+  type: UPDATE_USER_DATA_FAIL,
+  payload: error,
+});
+
 export {
   signUpRequest,
   signUpSuccess,
@@ -76,4 +110,10 @@ export {
   getUserDataFail,
   getStaticDataSuccess,
   getStaticDataFail,
+  updateLanguage,
+  updateTimezone,
+  updateCurrency,
+  updateUserDataRequest,
+  updateUserDataSuccess,
+  updateUserDataUpFail,
 };

@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import LocalizationSetting from './LocalizationSetting';
+import LocalizationSetting from '../../containers/Preferences/LocalizationSetting';
 import PrivacySetting from './PrivacySetting';
 import ContentSetting from './ContentSetting';
 
@@ -46,17 +47,20 @@ const SaveButton = styled.button`
 `;
 
 
-const DisplayPanel = () => (
+const DisplayPanel = ({ updateUserDataRequest }) => (
   <DisplayPanelWrapper>
     <TextHeader>Edit Preferences</TextHeader>
     <LocalizationSetting />
     <PrivacySetting />
     <ContentSetting />
     <SaveButtonBox>
-      <SaveButton>Save Preferences</SaveButton>
+      <SaveButton onClick={updateUserDataRequest}>Save Preferences</SaveButton>
     </SaveButtonBox>
   </DisplayPanelWrapper>
 );
 
+DisplayPanel.propTypes = {
+  updateUserDataRequest: PropTypes.func.isRequired,
+};
 
 export default DisplayPanel;

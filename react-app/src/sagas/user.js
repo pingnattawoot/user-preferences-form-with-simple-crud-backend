@@ -1,6 +1,6 @@
-import { call, put, all, takeLatest } from 'redux-saga/effects';
+import { call, put, all, select, takeLatest } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
-import { SIGNUP_REQUEST, SIGNIN_REQUEST, GET_USER_DATA_REQUEST } from '../actions/types';
+import { SIGNUP_REQUEST, SIGNIN_REQUEST, GET_USER_DATA_REQUEST, UPDATE_USER_DATA_REQUEST } from '../actions/types';
 import {
   signUpSuccess,
   signUpFail,
@@ -10,12 +10,15 @@ import {
   getUserDataFail,
   getStaticDataSuccess,
   getStaticDataFail,
+  // updateUserDataSuccess,
+  // updateUserDataUpFail,
 } from '../actions/user';
 import {
   signUp,
   signIn,
   getUserData,
   getStaticData,
+  updateUserData,
   getUserTokenFromStorage,
   setUserTokenInStorage,
 } from '../api';
@@ -72,11 +75,25 @@ function* signInWorker(action) {
   }
 }
 
+function* updateUserWorker() {
+  try {
+    // console.log('YEAH')
+    const token = getUserTokenFromStorage();
+    const getPreferences = state => state.user.data.preferences;
+    const preferences = yield select(getPreferences);
+    console.log(preferences);
+    yield call(updateUserData, { token, preferences });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 
 export function* userWatcher() {
   yield all([
     takeLatest(SIGNUP_REQUEST, signUpWorker),
     takeLatest(SIGNIN_REQUEST, signInWorker),
     takeLatest(GET_USER_DATA_REQUEST, getUserWorker),
+    takeLatest(UPDATE_USER_DATA_REQUEST, updateUserWorker),
   ]);
 }

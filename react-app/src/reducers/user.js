@@ -10,6 +10,11 @@ import {
   GET_USER_DATA_FAIL,
   GET_STATIC_DATA_SUCCESS,
   GET_STATIC_DATA_FAIL,
+  UPDATE_LOCALIZAITON_LANGUAGE,
+  UPDATE_LOCALIZAITON_TIMEZONE,
+  UPDATE_LOCALIZAITON_CURRENCY,
+  // UPDATE_LOCALIZAITON_TIMEZONE,
+  // UPDATE_LOCALIZAITON_CURRENCY,
 } from '../actions/types';
 
 const initialState = {
@@ -100,6 +105,48 @@ export const userReducer = (state = initialState, action) => {
         isLoading: false,
         isError: true,
         error: action.payload,
+      };
+    case UPDATE_LOCALIZAITON_LANGUAGE:
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          preferences: {
+            ...state.data.preferences,
+            localization: {
+              ...state.data.preferences.localization,
+              language: action.payload,
+            },
+          },
+        },
+      };
+    case UPDATE_LOCALIZAITON_TIMEZONE:
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          preferences: {
+            ...state.data.preferences,
+            localization: {
+              ...state.data.preferences.localization,
+              time_zone: action.payload,
+            },
+          },
+        },
+      };
+    case UPDATE_LOCALIZAITON_CURRENCY:
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          preferences: {
+            ...state.data.preferences,
+            localization: {
+              ...state.data.preferences.localization,
+              currency: action.payload,
+            },
+          },
+        },
       };
     default:
       return state;
