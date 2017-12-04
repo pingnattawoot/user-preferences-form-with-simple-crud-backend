@@ -1,5 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
+import { withRouter } from 'react-router-dom';
+import { removeUserTokenFromStorage } from '../api';
 
 const NavagationBarWrapper = styled.div`
   display: flex;
@@ -74,30 +77,40 @@ const ActionListItem = styled.li`
   }
 `;
 
-const NavigationBar = () => (
-  <NavagationBarWrapper>
-    <NavigationList>
-      <ListItem>
-        <SearchIcon className="fa fa-search" />
-        <SearchBox type="text" placeholder="Seach Fancy" />
-      </ListItem>
-      <ListItem center>
-        <Brand>FANCY</Brand>
-      </ListItem>
-      <ListItem>
-        <ActionList>
-          <ActionListItem>
-            <i className="fa fa-shopping-cart fa-fw" aria-hidden="true" />
-          </ActionListItem>
-          <ActionListItem><i className="fa fa-archive fa-fw" aria-hidden="true" /></ActionListItem>
-          <ActionListItem><i className="fa fa-bolt fa-fw" aria-hidden="true" /></ActionListItem>
-          <ActionListItem><i className="fa fa-user fa-fw" aria-hidden="true" /></ActionListItem>
-          <ActionListItem>Log out</ActionListItem>
-        </ActionList>
-      </ListItem>
-    </NavigationList>
+const NavigationBar = ({ history }) => {
+  const handleSignOut = () => {
+    removeUserTokenFromStorage();
+    history.push('/signin');
+  };
 
-  </NavagationBarWrapper>
-);
+  return (
+    <NavagationBarWrapper>
+      <NavigationList>
+        <ListItem>
+          <SearchIcon className="fa fa-search" />
+          <SearchBox type="text" placeholder="Seach Fancy" />
+        </ListItem>
+        <ListItem center>
+          <Brand>FANCY</Brand>
+        </ListItem>
+        <ListItem>
+          <ActionList>
+            <ActionListItem>
+              <i className="fa fa-shopping-cart fa-fw" aria-hidden="true" />
+            </ActionListItem>
+            <ActionListItem><i className="fa fa-archive fa-fw" aria-hidden="true" /></ActionListItem>
+            <ActionListItem><i className="fa fa-bolt fa-fw" aria-hidden="true" /></ActionListItem>
+            <ActionListItem><i className="fa fa-user fa-fw" aria-hidden="true" /></ActionListItem>
+            <ActionListItem onClick={handleSignOut}>Sign out</ActionListItem>
+          </ActionList>
+        </ListItem>
+      </NavigationList>
+    </NavagationBarWrapper>
+  );
+};
 
-export default NavigationBar;
+NavigationBar.propTypes = {
+  history: PropTypes.object.isRequired,
+};
+
+export default withRouter(NavigationBar);

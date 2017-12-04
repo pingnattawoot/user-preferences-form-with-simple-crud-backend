@@ -46,20 +46,39 @@ const SaveButton = styled.button`
   }
 `;
 
+const SaveSuccessText = styled.div`
+  color: #3aaf57;
+  font-size: 12px;
+  font-weight: bold;
+  margin-right: 16px;
+`;
 
-const DisplayPanel = ({ updateUserDataRequest }) => (
-  <DisplayPanelWrapper>
-    <TextHeader>Edit Preferences</TextHeader>
-    <LocalizationSetting />
-    <PrivacySetting />
-    <ContentSetting />
-    <SaveButtonBox>
+
+const DisplayPanel = ({ isSaving, saveSuccess, updateUserDataRequest }) => {
+  const renderSaveButton = () => (
+    isSaving ?
+      <SaveButton>Saving...</SaveButton> :
       <SaveButton onClick={updateUserDataRequest}>Save Preferences</SaveButton>
-    </SaveButtonBox>
-  </DisplayPanelWrapper>
-);
+  );
+
+  return (
+    <DisplayPanelWrapper>
+      <TextHeader>Edit Preferences</TextHeader>
+      <LocalizationSetting />
+      <PrivacySetting />
+      <ContentSetting />
+      <SaveButtonBox>
+        {renderSaveButton()}
+        {saveSuccess ?
+          <SaveSuccessText>Done ! you can refresh the page now</SaveSuccessText> : ''}
+      </SaveButtonBox>
+    </DisplayPanelWrapper>
+  );
+};
 
 DisplayPanel.propTypes = {
+  isSaving: PropTypes.bool.isRequired,
+  saveSuccess: PropTypes.bool.isRequired,
   updateUserDataRequest: PropTypes.func.isRequired,
 };
 

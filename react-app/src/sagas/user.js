@@ -10,8 +10,8 @@ import {
   getUserDataFail,
   getStaticDataSuccess,
   getStaticDataFail,
-  // updateUserDataSuccess,
-  // updateUserDataUpFail,
+  updateUserDataSuccess,
+  updateUserDataUpFail,
 } from '../actions/user';
 import {
   signUp,
@@ -77,14 +77,15 @@ function* signInWorker(action) {
 
 function* updateUserWorker() {
   try {
-    // console.log('YEAH')
     const token = getUserTokenFromStorage();
     const getPreferences = state => state.user.data.preferences;
     const preferences = yield select(getPreferences);
-    console.log(preferences);
     yield call(updateUserData, { token, preferences });
+    yield call(delay, 1500);
+    yield put(updateUserDataSuccess());
   } catch (error) {
-    console.log(error);
+    yield call(delay, 1500);
+    yield put(updateUserDataUpFail());
   }
 }
 

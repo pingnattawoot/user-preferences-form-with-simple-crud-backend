@@ -13,8 +13,9 @@ import {
   UPDATE_LOCALIZAITON_LANGUAGE,
   UPDATE_LOCALIZAITON_TIMEZONE,
   UPDATE_LOCALIZAITON_CURRENCY,
-  // UPDATE_LOCALIZAITON_TIMEZONE,
-  // UPDATE_LOCALIZAITON_CURRENCY,
+  UPDATE_USER_DATA_REQUEST,
+  UPDATE_USER_DATA_SUCCESS,
+  UPDATE_USER_DATA_FAIL,
 } from '../actions/types';
 
 const initialState = {
@@ -26,6 +27,8 @@ const initialState = {
   error: '',
   data: {},
   static: {},
+  isSaving: false,
+  saveSuccess: false,
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -147,6 +150,23 @@ export const userReducer = (state = initialState, action) => {
             },
           },
         },
+      };
+    case UPDATE_USER_DATA_REQUEST:
+      return {
+        ...state,
+        isSaving: true,
+      };
+    case UPDATE_USER_DATA_SUCCESS:
+      return {
+        ...state,
+        isSaving: false,
+        saveSuccess: true,
+      };
+    case UPDATE_USER_DATA_FAIL:
+      return {
+        ...state,
+        isSaving: false,
+        saveSuccess: false,
       };
     default:
       return state;
