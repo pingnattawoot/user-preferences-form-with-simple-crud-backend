@@ -9,9 +9,9 @@ const userSchema = new Schema({
   password: { type: String, required: true },
   preferences: {
     localization: {
-      language: { type: String, default: null },
-      time_zone: { type: String, default: null },
-      currency: { type: String, default: null },
+      language: { type: String, default: 'en' },
+      time_zone: { type: String, default: '+07:00' },
+      currency: { type: String, default: 'USD' },
     },
     privacy: {
       profile_visibility: {
